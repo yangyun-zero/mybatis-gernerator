@@ -75,7 +75,7 @@ public class MyCommentGenerator implements CommentGenerator {
         sb.append("(max = ").append(introspectedColumn.getLength())
                 .append(", message = \"").append(introspectedColumn.getRemarks())
                 .append("长度不能超过" ).append(introspectedColumn.getLength())
-                .append("\"");
+                .append("\")");
         field.addAnnotation(sb.toString());
     }
 
