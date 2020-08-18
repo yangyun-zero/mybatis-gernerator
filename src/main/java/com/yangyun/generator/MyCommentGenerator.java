@@ -22,7 +22,7 @@ public class MyCommentGenerator implements CommentGenerator {
 
     private List<String> fieldType = new ArrayList<>(Arrays.asList("Long", "Integer"));
 
-    private String MAX_NUM = "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+    private String MAX_NUM = "8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888";
 
     @Override
     public void addConfigurationProperties(Properties properties) {
@@ -38,7 +38,8 @@ public class MyCommentGenerator implements CommentGenerator {
     @Override
     public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
         if (!introspectedColumn.isNullable()){
-            field.addAnnotation(AnnotationEnum.NOTNULL.getAnnotationName());
+//            field.addAnnotation(AnnotationEnum.NOTNULL.getAnnotationName());
+            setNotNull(field, introspectedColumn);
             FullyQualifiedJavaType notnull = new FullyQualifiedJavaType(AnnotationEnum.NOTNULL.getAnnotationReference());
             compilationUnit.addImportedType(notnull);
         }
@@ -49,7 +50,7 @@ public class MyCommentGenerator implements CommentGenerator {
             setMaxAnnotation(field, introspectedColumn);
             FullyQualifiedJavaType max = new FullyQualifiedJavaType(AnnotationEnum.MAX.getAnnotationReference());
             compilationUnit.addImportedType(max);
-        } else if ("String".equals(shortName)){
+        } else if (ConstantPool.STRING.equals(shortName)){
             setMaxStringLength(field, introspectedColumn);
 //            FullyQualifiedJavaType max = new FullyQualifiedJavaType(AnnotationEnum.SIZE.getAnnotationReference());
 //            compilationUnit.addImportedType(max);
@@ -60,23 +61,49 @@ public class MyCommentGenerator implements CommentGenerator {
     }
     
     private String generatorMaxNum(int length){
-        return MAX_NUM.substring(0, length);
+        return MAX_NUM.substring(ConstantPool.ZERO, length) + ConstantPool.L;
+    }
+
+    private void setNotNull(Field field, IntrospectedColumn introspectedColumn){
+        StringBuffer sb = new StringBuffer(AnnotationEnum.NOTNULL.getAnnotationName());
+//        sb.append(ConstantPool.LEFT_BRACKET);
+        setGroup(field, sb);
+        sb.append(ConstantPool.RIGHT_BRACKET);
+        field.addAnnotation(sb.toString());
     }
 
     private void setMaxAnnotation(Field field, IntrospectedColumn introspectedColumn){
         StringBuffer sb = new StringBuffer(AnnotationEnum.MAX.getAnnotationName());
-        sb.append("(value = ").append(generatorMaxNum(introspectedColumn.getLength()))
+//        sb.append(ConstantPool.LEFT_BRACKET);
+        setGroup(field, sb);
+        sb.append(ConstantPool.SYMBOL);
+        sb.append("value = ").append(generatorMaxNum(introspectedColumn.getLength()))
             .append(", message = \"" + introspectedColumn.getRemarks() + "超出最大值\")");
         field.addAnnotation(sb.toString());
     }
 
     private void setMaxStringLength(Field field, IntrospectedColumn introspectedColumn){
         StringBuffer sb = new StringBuffer(AnnotationEnum.SIZE.getAnnotationName());
-        sb.append("(max = ").append(introspectedColumn.getLength())
+//        sb.append(ConstantPool.LEFT_BRACKET);
+        setGroup(field, sb);
+        sb.append(ConstantPool.SYMBOL);
+        sb.append("max = ").append(introspectedColumn.getLength())
                 .append(", message = \"").append(introspectedColumn.getRemarks())
                 .append("长度不能超过" ).append(introspectedColumn.getLength())
                 .append("\")");
         field.addAnnotation(sb.toString());
+    }
+
+    private void setGroup(Field field, StringBuffer sb){
+        sb.append(ConstantPool.LEFT_BRACKET);
+        String name = field.getName();
+        sb.append(ConstantPool.GROUPS).append(ConstantPool.EQUALS_SYMBOL).append(ConstantPool.LEFT_BIG_BRACKET);
+        sb.append(GroupClass.UPDATE.getClassName()).append(ConstantPool.SUBFIX);
+        if (!name.equals(ConstantPool.ID)){
+            sb.append(ConstantPool.SYMBOL);
+            sb.append(GroupClass.INSERT.getClassName()).append(ConstantPool.SUBFIX);
+        }
+        sb.append(ConstantPool.RIGHT_SMALL_BRACKET);
     }
 
     @Override

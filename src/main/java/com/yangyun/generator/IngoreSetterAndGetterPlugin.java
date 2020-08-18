@@ -1,6 +1,5 @@
 package com.yangyun.generator;
 
-import com.yangyun.generator.AnnotationEnum;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -28,6 +27,10 @@ public class IngoreSetterAndGetterPlugin extends PluginAdapter {
         topLevelClass.addImportedType("lombok.NoArgsConstructor");
         topLevelClass.addImportedType("lombok.AllArgsConstructor");
         topLevelClass.addImportedType("lombok.experimental.Accessors");
+        topLevelClass.addImportedType("javax.validation.constraints.Size");
+//        topLevelClass.addImportedType("java.time.LocalDateTime");
+        topLevelClass.addImportedType(GroupClass.INSERT.getClassReference());
+        topLevelClass.addImportedType(GroupClass.UPDATE.getClassReference());
 
         //添加domain的注解
         topLevelClass.addAnnotation("@Data");

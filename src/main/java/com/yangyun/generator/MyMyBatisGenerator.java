@@ -205,7 +205,7 @@ public class MyMyBatisGenerator {
 
             if (isReplaceDateToLocalDateTime){
                 gjf.getCompilationUnit().getImportedTypes().add(new FullyQualifiedJavaType("java.time.LocalDateTime"));
-                source = source.replaceAll("Date", "LocalDateTime");
+                source = source.replaceAll("Date", "LocalDateTime").replaceAll("java.util", "java.time");
             }
             writeFile(targetFile, source, gjf.getFileEncoding());
         } catch (ShellException e) {
