@@ -16,6 +16,7 @@ public enum AnnotationEnum {
     MIN("@Min","javax.validation.constraints.Min"),
     MAX("@Max","javax.validation.constraints.Max"),
     SIZE("@Size","javax.validation.constraints.Max"),
+    LENGTH("@Length", "org.hibernate.validator.constraints.Length"),
     ;
 
 

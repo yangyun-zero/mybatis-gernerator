@@ -83,7 +83,7 @@ public class MyCommentGenerator implements CommentGenerator {
     }
 
     private void setMaxStringLength(Field field, IntrospectedColumn introspectedColumn){
-        StringBuffer sb = new StringBuffer(AnnotationEnum.SIZE.getAnnotationName());
+        StringBuffer sb = new StringBuffer(AnnotationEnum.LENGTH.getAnnotationName());
 //        sb.append(ConstantPool.LEFT_BRACKET);
         setGroup(field, sb);
         sb.append(ConstantPool.SYMBOL);

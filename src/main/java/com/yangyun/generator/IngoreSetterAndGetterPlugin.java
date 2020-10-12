@@ -28,6 +28,7 @@ public class IngoreSetterAndGetterPlugin extends PluginAdapter {
         topLevelClass.addImportedType("lombok.AllArgsConstructor");
         topLevelClass.addImportedType("lombok.experimental.Accessors");
         topLevelClass.addImportedType("javax.validation.constraints.Size");
+        topLevelClass.addImportedType(AnnotationEnum.LENGTH.getAnnotationReference());
 //        topLevelClass.addImportedType("java.time.LocalDateTime");
         topLevelClass.addImportedType(GroupClass.INSERT.getClassReference());
         topLevelClass.addImportedType(GroupClass.UPDATE.getClassReference());

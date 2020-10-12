@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Main {
 
-    private static String[] TABLES = {"55555"};
+    private static String[] TABLES = {"sales_prices"};
 
     private static String C = "_";
 
