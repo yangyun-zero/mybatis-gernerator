@@ -1,7 +1,6 @@
 package com.yangyun.generator;
 
-import com.baomidou.mybatisplus.generator.AutoGenerator;
-import org.apache.commons.collections4.CollectionUtils;
+import com.yangyun.generator.generators.MyMyBatisGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.Context;
@@ -16,7 +15,7 @@ import java.util.List;
 
 /**
  * @author yangyun
- * @Description:
+ * @Description: https://blog.csdn.net/qq_28898309/article/details/106812466?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase
  * @date 2020/5/26 18:16
  */
 public class Main {
@@ -65,16 +64,8 @@ public class Main {
     public static String resolverDomainName(String s){
         StringBuffer sb = new StringBuffer();
         for (String ss : s.split(C)){
-            sb.append(upperCase(ss));
+            sb.append(com.yangyun.generator.utils.StringUtils.upperCase(ss));
         }
         return sb.toString();
-    }
-
-    public static String upperCase(String str) {
-        char[] ch = str.toCharArray();
-        if (ch[0] >= 'a' && ch[0] <= 'z') {
-            ch[0] = (char) (ch[0] - 32);
-        }
-        return new String(ch);
     }
 }

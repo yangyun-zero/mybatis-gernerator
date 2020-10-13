@@ -1,4 +1,4 @@
-package com.yangyun.generator;
+package com.yangyun.generator.generators;
 
 import org.mybatis.generator.api.*;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;

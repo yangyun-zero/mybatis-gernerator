@@ -17,9 +17,25 @@
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 
         <!-- 去除 getter setter 方法 -->
-        <plugin type="com.yangyun.generator.IngoreSetterAndGetterPlugin" />
+        <plugin type="com.yangyun.generator.plugin.IngoreSetterAndGetterPlugin" />
 
-        <commentGenerator type="com.yangyun.generator.MyCommentGenerator">
+        <plugin type="com.yangyun.generator.plugin.ControllerGeneratorPlugin">
+            <property name="targetProject" value="${targetProject}"></property>
+            <property name="targetServicePackage" value="${targetServicePackage}"></property>
+            <property name="targetServiceImplPackage" value="${targetServiceImplPackage}"></property>
+            <property name="msdmControllerPackage" value="${msdmControllerPackage}"></property>
+            <property name="materialServiceControllerPackage" value="${materialServiceControllerPackage}"></property>
+            <property name="superServiceInterface" value="${superServiceInterface}"></property>
+            <property name="superServiceImpl" value="${superServiceImpl}"></property>
+            <property name="superControllerClass" value="${superControllerClass}"></property>
+            <property name="serviceSuffix" value="${serviceSuffix}"></property>
+        </plugin>
+        
+        <plugin type="com.yangyun.generator.plugin.ServiceGeneratorPlugin">
+
+        </plugin>
+
+        <commentGenerator type="com.yangyun.generator.generators.MyCommentGenerator">
             <property name="suppressDate" value="true"/>
             <property name="suppressAllComments" value="false"/>
         </commentGenerator>

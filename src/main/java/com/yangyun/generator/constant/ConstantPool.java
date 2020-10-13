@@ -1,4 +1,4 @@
-package com.yangyun.generator;
+package com.yangyun.generator.constant;
 
 /**
  * @author yangyun
@@ -30,4 +30,16 @@ public interface ConstantPool {
     String ID = "id";
 
     String L = "L";
+
+    String POINT = ".";
+
+    String TAG = "tags";
+
+    String VALUE = "value";
+
+    String QUOTATION  = "\"";
+
+    String UPRIGHT_SLASH  = "/";
+
+    Boolean SUPER_INTEGERFACE = true;
 }

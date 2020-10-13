@@ -1,5 +1,7 @@
-package com.yangyun.generator;
+package com.yangyun.generator.plugin;
 
+import com.yangyun.generator.constant.AnnotationEnum;
+import com.yangyun.generator.constant.GroupClass;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;

@@ -1,4 +1,4 @@
-package com.yangyun.generator;
+package com.yangyun.generator.constant;
 
 import lombok.Getter;
 

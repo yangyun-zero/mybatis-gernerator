@@ -1,4 +1,4 @@
-package com.yangyun.generator;
+package com.yangyun.generator.constant;
 
 import lombok.Getter;
 
@@ -17,6 +17,9 @@ public enum AnnotationEnum {
     MAX("@Max","javax.validation.constraints.Max"),
     SIZE("@Size","javax.validation.constraints.Max"),
     LENGTH("@Length", "org.hibernate.validator.constraints.Length"),
+    RESTCONTROLLER("@RestController", "org.springframework.web.bind.annotation.RestController"),
+    API("@Api", "io.swagger.annotations.Api"),
+    REQUESTMAPPING("@RequestMapping", "org.springframework.web.bind.annotation.RequestMapping"),
     ;
 
 
