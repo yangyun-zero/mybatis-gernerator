@@ -16,35 +16,50 @@ public abstract class BaseGeneratorPlugin extends PluginAdapter {
 
     protected String baseRecordType;
     protected String targetProject;
+
     protected String msdmControllerPackage;
     protected String materialServiceControllerPackage;
-    protected String targetServiceImplPackage;
-    protected String targetServicePackage;
+
+    protected String materialServiceServicePackage;
+    protected String materialServiceServiceImplPackage;
+
+    protected String materialServiceControllerName;
+
+    protected String msdmServicePackage;
+    protected String msdmServiceImplPackage;
+
     protected String serviceSuffix;
     protected String servicePreffix;
     protected String modelName;
-    protected String serviceName;
-    protected String serviceImplName;
+
+    protected String materialServiceName;
+    protected String materialServiceImplName;
+
+    protected String msdmServiceName;
+    protected String msdmServiceImplName;
+
     protected String superControllerClass;
     protected String superServiceImpl;
     protected String superServiceInterface;
     protected String msdmControllerName;
-    protected String materialServiceControllerName;
     protected String controllerRequestValue;
     protected FullyQualifiedJavaType model;
 
     @Override
     public boolean validate(List<String> warnings) {
         targetProject = properties.getProperty("targetProject");
+
         msdmControllerPackage = properties.getProperty("msdmControllerPackage");
         materialServiceControllerPackage = properties.getProperty("materialServiceControllerPackage");
-        targetServiceImplPackage = properties.getProperty("targetServiceImplPackage");
-        targetServicePackage = properties.getProperty("targetServicePackage");
+        materialServiceServicePackage = properties.getProperty("materialServiceServicePackage");
+        materialServiceServiceImplPackage = properties.getProperty("materialServiceServiceImplPackage");
+        msdmServicePackage = properties.getProperty("msdmServicePackage");
+        msdmServiceImplPackage = properties.getProperty("msdmServiceImplPackage");
+
         servicePreffix = properties.getProperty("servicePreffix");
         servicePreffix = stringHasValue(servicePreffix) ? servicePreffix : "";
         serviceSuffix = properties.getProperty("serviceSuffix");
         serviceSuffix = stringHasValue(serviceSuffix) ? serviceSuffix : "";
-        serviceImplName = properties.getProperty("serviceImplName");
         superControllerClass = properties.getProperty("superControllerClass");
         superServiceImpl = properties.getProperty("superServiceImpl");
         superServiceInterface = properties.getProperty("superServiceInterface");

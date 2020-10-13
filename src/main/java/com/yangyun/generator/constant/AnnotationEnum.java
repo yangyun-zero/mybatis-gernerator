@@ -20,6 +20,8 @@ public enum AnnotationEnum {
     RESTCONTROLLER("@RestController", "org.springframework.web.bind.annotation.RestController"),
     API("@Api", "io.swagger.annotations.Api"),
     REQUESTMAPPING("@RequestMapping", "org.springframework.web.bind.annotation.RequestMapping"),
+    POSTMAPPING("@PostMapping", "org.springframework.web.bind.annotation.PostMapping"),
+    APIOPERATION("@ApiOperation", "io.swagger.annotations.ApiOperation"),
     ;
 
 

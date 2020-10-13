@@ -19,21 +19,21 @@
         <!-- 去除 getter setter 方法 -->
         <plugin type="com.yangyun.generator.plugin.IngoreSetterAndGetterPlugin" />
 
-        <plugin type="com.yangyun.generator.plugin.ControllerGeneratorPlugin">
+        <plugin type="com.yangyun.generator.plugin.GeneratorPlugin">
             <property name="targetProject" value="${targetProject}"></property>
-            <property name="targetServicePackage" value="${targetServicePackage}"></property>
-            <property name="targetServiceImplPackage" value="${targetServiceImplPackage}"></property>
             <property name="msdmControllerPackage" value="${msdmControllerPackage}"></property>
             <property name="materialServiceControllerPackage" value="${materialServiceControllerPackage}"></property>
             <property name="superServiceInterface" value="${superServiceInterface}"></property>
             <property name="superServiceImpl" value="${superServiceImpl}"></property>
             <property name="superControllerClass" value="${superControllerClass}"></property>
             <property name="serviceSuffix" value="${serviceSuffix}"></property>
+
+            <property name="materialServiceServicePackage" value="${materialServiceServicePackage}"></property>
+            <property name="materialServiceServiceImplPackage" value="${materialServiceServiceImplPackage}"></property>
+            <property name="msdmServicePackage" value="${msdmServicePackage}"></property>
+            <property name="msdmServiceImplPackage" value="${msdmServiceImplPackage}"></property>
         </plugin>
         
-        <plugin type="com.yangyun.generator.plugin.ServiceGeneratorPlugin">
-
-        </plugin>
 
         <commentGenerator type="com.yangyun.generator.generators.MyCommentGenerator">
             <property name="suppressDate" value="true"/>

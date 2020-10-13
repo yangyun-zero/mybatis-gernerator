@@ -12,6 +12,8 @@ public enum GroupClass {
 
     INSERT("Insert", "com.yl.materialservice.group.Insert"),
     UPDATE("Update", "com.yl.materialservice.group.Update"),
+    MATERIAL_RESULT("Result", "com.yl.common.base.model.vo.Result"),
+    BOOLEAN("Boolean", "java.lang.Boolean"),
     ;
 
     private String className;

@@ -42,4 +42,10 @@ public interface ConstantPool {
     String UPRIGHT_SLASH  = "/";
 
     Boolean SUPER_INTEGERFACE = true;
+
+    String SAVE = "save";
+
+    String ADD = "新增";
+
+    String NOTES = "notes";
 }
