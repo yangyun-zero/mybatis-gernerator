@@ -14,6 +14,7 @@ public enum GroupClass {
     UPDATE("Update", "com.yl.materialservice.group.Update"),
     MATERIAL_RESULT("Result", "com.yl.common.base.model.vo.Result"),
     BOOLEAN("Boolean", "java.lang.Boolean"),
+    PAGE("Page", "com.baomidou.mybatisplus.extension.plugins.pagination.Page"),
     ;
 
     private String className;

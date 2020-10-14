@@ -3,6 +3,7 @@ package com.yangyun.generator.plugin;
 import com.yangyun.generator.constant.AnnotationEnum;
 import com.yangyun.generator.constant.ConstantPool;
 import com.yangyun.generator.constant.GroupClass;
+import com.yangyun.generator.constant.MethodEnum;
 import com.yangyun.generator.utils.StringUtils;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -65,7 +66,11 @@ public class GeneratorPlugin extends BaseGeneratorPlugin {
         addAnnotation(clazz, introspectedTable.getRemarks(), type);
 
         // 添加 save 方法
-        addSaveMethod(clazz);
+        addMethod(clazz, MethodEnum.SAVE);
+        addMethod(clazz, MethodEnum.DELETE);
+        addMethod(clazz, MethodEnum.UPDATE);
+        addMethod(clazz, MethodEnum.PAGE);
+        addMethod(clazz, MethodEnum.DETAIL);
 
         GeneratedJavaFile gjf2 = new GeneratedJavaFile(clazz, targetProject, context.getJavaFormatter());
         return gjf2;
@@ -113,35 +118,76 @@ public class GeneratorPlugin extends BaseGeneratorPlugin {
         }
     }
 
-    private void addSaveMethod (TopLevelClass clazz){
+    private void addMethod (TopLevelClass clazz, MethodEnum methodEnum){
         //描述 save 方法名
-        Method method = new Method(ConstantPool.SAVE);
-
+        Method method = new Method(methodEnum.getEnName());
 
         // @ApiOperation
         StringBuilder sb = new StringBuilder(AnnotationEnum.APIOPERATION.getAnnotationName());
         sb.append(ConstantPool.LEFT_BRACKET).append(ConstantPool.VALUE).append(ConstantPool.EQUALS_SYMBOL).append(ConstantPool.QUOTATION)
-                .append(ConstantPool.ADD).append(ConstantPool.QUOTATION).append(ConstantPool.SYMBOL).append(ConstantPool.NOTES).append(ConstantPool.EQUALS_SYMBOL)
-                .append(ConstantPool.QUOTATION).append(ConstantPool.ADD).append(ConstantPool.QUOTATION).append(ConstantPool.RIGHT_BRACKET);
+                .append(methodEnum.getCnName()).append(ConstantPool.QUOTATION).append(ConstantPool.SYMBOL).append(ConstantPool.NOTES).append(ConstantPool.EQUALS_SYMBOL)
+                .append(ConstantPool.QUOTATION).append(methodEnum.getCnName()).append(ConstantPool.QUOTATION).append(ConstantPool.RIGHT_BRACKET);
         method.addAnnotation(sb.toString());
         clazz.addImportedType(AnnotationEnum.APIOPERATION.getAnnotationReference());
 
-        // @PostMapping
-        sb = new StringBuilder(AnnotationEnum.POSTMAPPING.getAnnotationName());
-        sb.append(ConstantPool.LEFT_BRACKET).append(ConstantPool.QUOTATION).append(ConstantPool.UPRIGHT_SLASH).append(ConstantPool.SAVE).append(ConstantPool.QUOTATION).append(ConstantPool.RIGHT_BRACKET);
-        method.addAnnotation(sb.toString());
-        clazz.addImportedType(AnnotationEnum.POSTMAPPING.getAnnotationReference());
-
         //方法注解
-        FullyQualifiedJavaType methodReturnType = new FullyQualifiedJavaType(GroupClass.MATERIAL_RESULT.getClassName() + "<" + GroupClass.BOOLEAN.getClassName() + ">");
-        clazz.addImportedType(GroupClass.MATERIAL_RESULT.getClassReference());
+        addMapping(method, clazz, methodEnum);
 
-        //返回类型
-        method.setReturnType(methodReturnType);
+        setReturnType(method, clazz, methodEnum);
+
         //方法体，逻辑代码
-        method.addBodyLine("return " + "success(null" + ");");
+        method.addBodyLine("return success(null);");
         //修饰符
         method.setVisibility(JavaVisibility.PUBLIC);
         clazz.addMethod(method);
+    }
+
+    /**
+     * 功能描述: 添加方法注解
+     * @param method：方法名称
+     * @param clazz： 目标
+     * @param methodEnum： 
+     * Return: void
+     * Author: yun.Yang
+     * Date: 2020/10/14 9:57
+     */
+    private void addMapping(Method method, TopLevelClass clazz, MethodEnum methodEnum){
+        AnnotationEnum annotationEnum = "detail".equals(methodEnum.getEnName()) || "page".equals(methodEnum.getEnName()) ? AnnotationEnum.GETMAPPING : AnnotationEnum.POSTMAPPING;
+        StringBuilder sb = new StringBuilder(annotationEnum.getAnnotationName());
+        clazz.addImportedType(annotationEnum.getAnnotationReference());
+        sb.append(ConstantPool.LEFT_BRACKET).append(ConstantPool.QUOTATION).append(ConstantPool.UPRIGHT_SLASH).append(methodEnum.getEnName()).append(ConstantPool.QUOTATION).append(ConstantPool.RIGHT_BRACKET);
+        method.addAnnotation(sb.toString());
+    }
+
+    /**
+     * 功能描述: 设置返回类型
+     * @param method：
+     * @param clazz：
+     * @param methodEnum：
+     * Return: void
+     * Author: yun.Yang
+     * Date: 2020/10/14 10:49
+     */
+    private void setReturnType (Method method, TopLevelClass clazz, MethodEnum methodEnum){
+
+        StringBuilder sb = new StringBuilder(GroupClass.MATERIAL_RESULT.getClassName());
+        sb.append("<");
+        switch (methodEnum.getEnName()){
+            case "page":
+                sb.append(GroupClass.PAGE.getClassName());
+                sb.append("<自己写>");
+                clazz.addImportedType(GroupClass.PAGE.getClassReference());
+                break;
+            case "detail":
+                sb.append("自己写");
+                break;
+            default:
+                sb.append(GroupClass.BOOLEAN.getClassName());
+                break;
+        }
+        sb.append(">");
+        FullyQualifiedJavaType methodReturnType = new FullyQualifiedJavaType(sb.toString());
+        clazz.addImportedType(GroupClass.MATERIAL_RESULT.getClassReference());
+        method.setReturnType(methodReturnType);
     }
 }

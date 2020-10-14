@@ -21,6 +21,7 @@ public enum AnnotationEnum {
     API("@Api", "io.swagger.annotations.Api"),
     REQUESTMAPPING("@RequestMapping", "org.springframework.web.bind.annotation.RequestMapping"),
     POSTMAPPING("@PostMapping", "org.springframework.web.bind.annotation.PostMapping"),
+    GETMAPPING("@GetMapping", "org.springframework.web.bind.annotation.GetMapping"),
     APIOPERATION("@ApiOperation", "io.swagger.annotations.ApiOperation"),
     ;
 
