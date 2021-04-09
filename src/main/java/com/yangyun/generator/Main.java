@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Main {
 
-    private static String[] TABLES = {"sales_prices"};
+    private static String[] TABLES = {"material_hot_paper_recover"};
 
     private static String C = "_";
 
